@@ -1,0 +1,4 @@
+python3-flask
+python3-itsdangerous
+python3-pyinotify
+python3-werkzeug
