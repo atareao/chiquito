@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  chiquito:
+    build: .
+    image: atareao/chiquito
+    restart: unless-stopped
+    ports:
+      - 8005:8000
