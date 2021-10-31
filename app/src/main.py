@@ -105,7 +105,3 @@ def get():
     jokes = []
     for i in cursor.fetchall():
         print(i)
-
-
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
