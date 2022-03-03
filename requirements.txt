@@ -1,5 +1,2 @@
 flask
 gunicorn
-itsdangerous
-pyinotify
-werkzeug

@@ -46,7 +46,7 @@ def create_joke(joke_id, author, value, created_at, updated_at):
     :param value str: The joke
     :param created_at integer: the timestamp when created
     :param updated_at integer: the timestamp when updated
-    """
+   """
     created_at = datetime.datetime.fromtimestamp(created_at).isoformat()
     updated_at = datetime.datetime.fromtimestamp(updated_at).isoformat()
     return {'id': joke_id,
