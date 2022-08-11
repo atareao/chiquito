@@ -13,7 +13,7 @@
 ## Install
 
 ```sh
-docker run --name chiquito -d -p 5000:5000 atareao/chiquito
+docker run --name chiquito -d -p 8000:8000 atareao/chiquito
 ```
 
 ## Author
