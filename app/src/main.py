@@ -29,12 +29,12 @@ from flask import Flask, jsonify, make_response, abort, url_for
 app = Flask(__name__)
 
 
-@app.route('/status', methods=['GET'])
+@app.route("/status", methods=["GET"])
 def get_status():
     """
     Get the status of the api server
     """
-    return make_response(jsonify({'status': 'Up and running'}), 200)
+    return make_response(jsonify({"status": "Up and running"}), 200)
 
 
 def create_joke(joke_id, author, value, created_at, updated_at):
@@ -46,15 +46,17 @@ def create_joke(joke_id, author, value, created_at, updated_at):
     :param value str: The joke
     :param created_at integer: the timestamp when created
     :param updated_at integer: the timestamp when updated
-   """
+    """
     created_at = datetime.datetime.fromtimestamp(created_at).isoformat()
     updated_at = datetime.datetime.fromtimestamp(updated_at).isoformat()
-    return {'id': joke_id,
-            'author': author,
-            'value': value,
-            'url': url_for('get_joke', joke_id=joke_id, _external=True),
-            'created_at': created_at,
-            'updated_at': updated_at}
+    return {
+        "id": joke_id,
+        "author": author,
+        "value": value,
+        "url": url_for("get_joke", joke_id=joke_id, _external=True),
+        "created_at": created_at,
+        "updated_at": updated_at,
+    }
 
 
 def select(sqlquery, one=False):
@@ -64,7 +66,7 @@ def select(sqlquery, one=False):
     :param sqlquery str: sql query
     :param one bool: if wants one or some items
     """
-    conn = sqlite3.connect('frases.db')
+    conn = sqlite3.connect("frases.db")
     cursor = conn.cursor()
     cursor.execute(sqlquery)
     if one:
@@ -91,17 +93,17 @@ def select_joke(sqlquery, one=False):
     return jokes
 
 
-@app.route('/api/1.0/jokes', methods=['GET'])
+@app.route("/api/1.0/jokes", methods=["GET"])
 def get_jokes():
     """
     Get all the jokes
 
     """
-    sqlquery = 'SELECT * FROM JOKES'
+    sqlquery = "SELECT * FROM JOKES"
     return jsonify(select_joke(sqlquery)), 201
 
 
-@app.route('/api/1.0/jokes/<int:joke_id>', methods=['GET'])
+@app.route("/api/1.0/jokes/<int:joke_id>", methods=["GET"])
 def get_joke(joke_id):
     """
     Get one joke
@@ -116,13 +118,13 @@ def get_joke(joke_id):
     return None
 
 
-@app.route('/api/1.0/jokes/random', methods=['GET'])
+@app.route("/api/1.0/jokes/random", methods=["GET"])
 def get_random():
     """
     Get a random joke
 
     """
-    sqlquery = 'SELECT COUNT(1) FROM JOKES'
+    sqlquery = "SELECT COUNT(1) FROM JOKES"
     result = select(sqlquery, True)
     print(result, type(result))
     joke_id = random.randint(1, result[0])
@@ -137,7 +139,7 @@ def not_found(error):
     :param error str: A json with the error
     """
     msg = str(error)
-    return make_response(jsonify({'status': 'error', 'msg': msg}), 404)
+    return make_response(jsonify({"status": "error", "msg": msg}), 404)
 
 
 def get():
@@ -145,8 +147,8 @@ def get():
     Print all the jokes
 
     """
-    conn = sqlite3.connect('../frases.db')
+    conn = sqlite3.connect("../frases.db")
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM JOKES')
+    cursor.execute("SELECT * FROM JOKES")
     for i in cursor.fetchall():
         print(i)
